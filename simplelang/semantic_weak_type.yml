@@ -2,8 +2,7 @@
 __comments: ""
 InitFileDir: ../../grammars/simplelang/corpus/
 BuiltinObjFile: ""
-IsWeakType: false
-FunctionArgumentUnit: argument
+IsWeakType: true
 BasicUnits:
   - stmt
 ConvertChain:
@@ -14,8 +13,7 @@ ConvertChain:
   - from: ALLFUNCTION
     to: ALLTYPES
 BasicTypes:
-  - INT
-  - FLOAT
+  - ANYTYPE
 OPRules:
   - OperandNum: 2
     OperandRightType: ALLTYPES

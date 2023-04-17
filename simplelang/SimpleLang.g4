@@ -27,8 +27,15 @@ structure_declaration : 'STRUCT' identifier '{' declaration_stmt_list '}' ;
 declaration_stmt_list : declaration_stmt ';'
                        | declaration_stmt ';' declaration_stmt_list ;
 
-type : 'INT'
-     | 'FLOAT' ;
+type : 'INT' {$ctx->SetDataType(kDataVarType); $ctx->SetDataFlag(kDefine);}
+     | 'FLOAT' {$ctx->SetDataType(kDataVarType); $ctx->SetDataFlag(kDefine);};
+
+function_def : type 'FUNCTION' identifier '(' argument_list? ')' '{' stmtlist '}' ;
+
+argument_list : argument
+              | argument ',' argument_list ;
+
+argument: type identifier;
 
 assign_expr : identifier '=' expr {$ctx->identifier()->SetDataType(kDataVarName); $ctx->identifier()->SetDataFlag(kDefine);}
             | identifier  {$ctx->identifier()->SetDataType(kDataVarName); $ctx->identifier()->SetDataFlag(kDefine);} ;
