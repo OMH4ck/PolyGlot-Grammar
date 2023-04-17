@@ -23,7 +23,7 @@ declaration_stmt : type assign_expr {$ctx->SetDataType(kDataVarDefine); $ctx->Se
                   | 'STRUCT' identifier assign_expr
                   | structure_declaration ;
 
-structure_declaration : 'STRUCT' identifier '{' declaration_stmt_list '}' ;
+structure_declaration : 'STRUCT' identifier '{' declaration_stmt_list '}' {$ctx->SetDataType(kDataClassType); $ctx->SetDataFlag(kDefine); $ctx->identifier()->SetDataType(kDataClassName); $ctx->identifier()->SetDataFlag(kDefine); $ctx->declaration_stmt_list()->SetDataType(kDataStructBody); $ctx->declaration_stmt_list()->SetScopeType(kScopeClass);} ;
 
 declaration_stmt_list : declaration_stmt ';'
                        | declaration_stmt ';' declaration_stmt_list ;
