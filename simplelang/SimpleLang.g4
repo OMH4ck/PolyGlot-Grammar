@@ -19,27 +19,27 @@ stmt : forstmt
      | function_def
      | expr ';' ;
 
-declaration_stmt : type assign_expr {$ctx->SetDataType(kDataVarDefine); $ctx->SetDataFlag(kDefine);}
+declaration_stmt : type assign_expr {$ctx->SetDataType(kVariableDefinition);}
                   | 'STRUCT' identifier assign_expr
                   | structure_declaration ;
 
-structure_declaration : 'STRUCT' identifier '{' declaration_stmt_list '}' {$ctx->SetDataType(kDataClassType); $ctx->SetDataFlag(kDefine); $ctx->identifier()->SetDataType(kDataClassName); $ctx->identifier()->SetDataFlag(kDefine); $ctx->declaration_stmt_list()->SetDataType(kDataStructBody); $ctx->declaration_stmt_list()->SetScopeType(kScopeClass);} ;
+structure_declaration : 'STRUCT' identifier '{' declaration_stmt_list '}' {$ctx->SetDataType(kClassDefinition); $ctx->identifier()->SetDataType(kClassName); $ctx->declaration_stmt_list()->SetDataType(kClassBody); $ctx->declaration_stmt_list()->SetScopeType(kScopeClass);} ;
 
 declaration_stmt_list : declaration_stmt ';'
                        | declaration_stmt ';' declaration_stmt_list ;
 
-type : 'INT' {$ctx->SetDataType(kDataVarType); $ctx->SetDataFlag(kDefine);}
-     | 'FLOAT' {$ctx->SetDataType(kDataVarType); $ctx->SetDataFlag(kDefine);};
+type : 'INT' {$ctx->SetDataType(kVariableType);}
+     | 'FLOAT' {$ctx->SetDataType(kVariableType); };
 
-function_def : type 'FUNCTION' identifier '(' argument_list? ')' '{' stmtlist '}' {$ctx->SetDataType(kDataFunctionType); $ctx->SetDataFlag(kDefine); $ctx->identifier()->SetDataType(kDataFunctionName); $ctx->identifier()->SetDataFlag(kDefine); $ctx->type()->SetDataType(kDataFunctionReturnValue); $ctx->stmtlist()->SetDataType(kDataFunctionBody); $ctx->stmtlist()->SetScopeType(kScopeFunction);};
+function_def : type 'FUNCTION' identifier '(' argument_list? ')' '{' stmtlist '}' {$ctx->SetDataType(kFunctionDefinition); $ctx->identifier()->SetDataType(kFunctionName); $ctx->type()->SetDataType(kFunctionReturnType); $ctx->stmtlist()->SetDataType(kFunctionBody); $ctx->stmtlist()->SetScopeType(kScopeFunction);};
 
 argument_list : argument
               | argument ',' argument_list ;
 
-argument: type identifier {$ctx->SetDataType(kDataFunctionArg); $ctx->SetDataFlag(kDefine); $ctx->identifier()->SetDataType(kDataVarName);};
+argument: type identifier {$ctx->SetDataType(kFunctionArgument); $ctx->identifier()->SetDataType(kVariableName);};
 
-assign_expr : identifier '=' expr {$ctx->identifier()->SetDataType(kDataVarName); $ctx->identifier()->SetDataFlag(kDefine);}
-            | identifier  {$ctx->identifier()->SetDataType(kDataVarName); $ctx->identifier()->SetDataFlag(kDefine);} ;
+assign_expr : identifier '=' expr {$ctx->identifier()->SetDataType(kVariableName);}
+            | identifier  {$ctx->identifier()->SetDataType(kVariableName);} ;
 
 forstmt : 'FOR' '(' expr ')' '{' stmtlist '}' ;
 
@@ -64,7 +64,7 @@ int_literal : INTLITERAL {$ctx->isIntLiteral = true;};
 
 string_literal : STRINGLITERAL ;
 
-identifier : IDENTIFIER {$ctx->isStringLiteral=true; $ctx->SetDataType(kDataFixUnit); $ctx->SetDataFlag(kUse);};
+identifier : IDENTIFIER {$ctx->isStringLiteral=true; $ctx->SetDataType(kFixUnit);};
 
 IDENTIFIER : [a-zA-Z_][a-zA-Z0-9_]* ;
 INTLITERAL : [0-9]+;
