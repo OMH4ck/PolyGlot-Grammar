@@ -1,0 +1,4 @@
+<?php
+
+$ref =& strlen("foo");
+

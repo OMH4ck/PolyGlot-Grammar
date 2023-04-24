@@ -1,0 +1,6 @@
+<?php
+
+assert(
+    false,
+);
+

@@ -1,0 +1,5 @@
+<?php
+
+#[AllowDynamicProperties]
+interface Test {}
+

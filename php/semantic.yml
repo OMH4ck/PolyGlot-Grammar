@@ -1,0 +1,8 @@
+---
+__comments: ''
+InitFileDir: /path/to/corpus
+BuiltinObjFile: ''
+IsWeakType: true
+SyntaxOnly: true
+BasicTypes:
+  - ANYTYPE

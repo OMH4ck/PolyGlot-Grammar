@@ -1,0 +1,2 @@
+<?php
+isset($GLOBALS[]);

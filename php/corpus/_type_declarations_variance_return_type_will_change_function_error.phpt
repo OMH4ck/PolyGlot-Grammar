@@ -1,0 +1,5 @@
+<?php
+
+#[ReturnTypeWillChange]
+function foo() {}
+
